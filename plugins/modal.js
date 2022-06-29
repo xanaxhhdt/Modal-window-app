@@ -5,7 +5,7 @@ Element.prototype.appendAfter = function (element) {
 };
 
 function noop() {
-   
+   console.log('a');
 }
 
 function _createModalFooter(buttons = []) {
@@ -73,6 +73,9 @@ $.modal = function (options) {
          setTimeout(() => {
             $modal.classList.remove('hide');
             closing = false;
+            if (typeof options.onClose === 'function') {
+               options.onClose();
+            }
          }, ANIMETION_SPEED);
       },
    };
