@@ -1,9 +1,9 @@
 'use strict';
 
 const fruits = [
-   { id: 1, title: 'Яблоки', price: 20, img: 'a' },
-   { id: 2, title: 'Апельсины', price: 30, img: 'a' },
-   { id: 3, title: 'Манго', price: 40, img: 'a' },
+   { id: 1, title: 'Яблоки', price: 20, img: 'https://via.placeholder.com/500' },
+   { id: 2, title: 'Апельсины', price: 30, img: 'https://via.placeholder.com/1500' },
+   { id: 3, title: 'Манго', price: 40, img: 'https://via.placeholder.com/900' },
 ];
 
 const modal = $.modal({
