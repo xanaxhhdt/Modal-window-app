@@ -1,4 +1,33 @@
 'use strict';
+
+Element.prototype.appendAfter = function (element) {
+   element.parentNode.insertBefore(this, element.nextSibling);
+};
+
+function noop() {
+   
+}
+
+function _createModalFooter(buttons = []) {
+   if (buttons.length === 0) {
+      return document.createElement('div');
+   }
+   
+   const wrap = document.createElement('div');
+   wrap.classList.add('modal__footer');
+   
+   buttons.forEach(item => {
+      const btn = document.createElement('button');
+      btn.textContent = item.text;
+      btn.classList.add('btn');
+      btn.classList.add(`btn-${item.type || 'secondary'}`);
+      btn.onclick = item.handler || noop;
+      wrap.append(btn);
+   });
+
+   return wrap;
+}
+
 function _createModal(options) {
    const DEFAULT_WIDTH = '600px';
    const modal = document.createElement('div');
@@ -10,16 +39,16 @@ function _createModal(options) {
                <span class="modal__title"> ${options.title || 'Окно'}</span>
                ${options.closable ? `<span class="modal__close" data-close="true">&times</span>` : ''}
             </div>
-            <div class="modal__body">
+            <div class="modal__body" data-content>
                ${options.content || ''}
-            </div>
-            <div class="modal__footer">
-               <button>ok</button>
-               <button>cancel</button>
             </div>
          </div>
       </div>
    `);
+
+   const footer = _createModalFooter(options.footerButtons);
+   footer.appendAfter(modal.querySelector('[data-content]'));
+
    document.querySelector('.container').after(modal);
    return modal;
 }
@@ -61,6 +90,9 @@ $.modal = function (options) {
          $modal.remove();
          $modal.removeEventListener('click', listerner);
          destroyed = true;
+      },
+      setContent(html) {
+         $modal.querySelector('[data-content]').innerHTML = html;
       }
    });
 };

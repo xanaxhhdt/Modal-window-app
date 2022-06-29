@@ -14,5 +14,19 @@ const modal = $.modal({
       <p>Lorem ipsum dolor sit.</p>
    `,
    width: '400px',
+   footerButtons: [
+      {
+         text: 'Okay', type: 'submit', handler() {
+            console.log('Prime Btn');
+            modal.close();
+         }
+      },
+      {
+         text: 'Cancel', type: 'submit', handler() {
+            console.log('Danger Btn');
+            modal.close();
+         }
+      },
+   ]
 });
 
